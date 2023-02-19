@@ -54,9 +54,9 @@ with st.sidebar:
 
 
 
-filtre_durum = st.multiselect("Bina Durumu: ",durumlar)
-if filtre_durum:
-    df = df[df["aciklama"].isin(filtre_durum)]
+    filtre_durum = st.multiselect("Bina Durumu: ",durumlar)
+    if filtre_durum:
+        df = df[df["aciklama"].isin(filtre_durum)]
     
 st.write("Bina Sayıları: ")
 
