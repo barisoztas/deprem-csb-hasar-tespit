@@ -1,5 +1,9 @@
 import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
+import folium
+from folium.plugins import HeatMap
+
 
 st.set_page_config(layout="wide")
 
@@ -9,6 +13,19 @@ def data():
     df = df.round(1)
     return df
 df = data()
+
+@st.cache
+def data_hatay():
+    df = pd.read_csv("data/hatay_geocode.csv")
+    df = df[df["x"].isna()==False]
+    return df
+
+hatay = data_hatay()
+m = folium.Map()
+
+coor = [[i["y"],i["x"]] for _,i in hatay.iterrows()]
+HeatMap(coor,radius=18).add_to(m)
+m.fit_bounds(m.get_bounds())
 
 st.title("Çevre ve Şehircilik Bakanlığı - Hasar Tespit")
 
@@ -63,5 +80,7 @@ st.write("Bina Sayıları: ")
 df_pivot = df.pivot_table(values="binaNo",index=["il","ilce","mahalle"],columns="aciklama",aggfunc="count").fillna(0)
 st.write(df_pivot.style.format(precision=0))
 
-st.write("Binalar: ")
-st.write(df)
+st.write("Hatay: Ağır Hasarlı, Yıkık, Acil Yıkılacak olarak hasar tespiti yapılan binalar.")
+html = m.get_root().render()
+components.html(html,height= 500,scrolling=False)
+
