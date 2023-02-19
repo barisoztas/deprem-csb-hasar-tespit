@@ -51,12 +51,12 @@ with st.sidebar:
     if filtre_mah:
         df = df[df["mahalle"].isin(filtre_mah)]
         durumlar = df["aciklama"].unique().tolist()
-        filtre_durum = st.multiselect("Bina Durumu: ",durumlar)
 
 
 
-    if filtre_durum:
-        df = df[df["aciklama"].isin(filtre_durum)]
+filtre_durum = st.multiselect("Bina Durumu: ",durumlar)
+if filtre_durum:
+    df = df[df["aciklama"].isin(filtre_durum)]
     
 st.write("Bina Sayıları: ")
 
