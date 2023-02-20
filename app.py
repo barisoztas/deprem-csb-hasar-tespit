@@ -77,7 +77,7 @@ with st.sidebar:
         # 3 satir kodu commentleyebilirsiniz.
         lon = il_kordinatlari[il_kordinatlari["il"].isin(filtre_il)]["lon"]
         lat = il_kordinatlari[il_kordinatlari["il"].isin(filtre_il)]["lat"]
-        m = folium.Map(location = [lon, lat], zoom_start=15)
+        m = folium.Map(location = [lon, lat], zoom_start=9)
         
         filtre_ilce = st.multiselect("İlçe Seçiniz: ",ilceler)
     
